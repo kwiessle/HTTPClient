@@ -20,7 +20,7 @@ public extension APIClient {
     @MainActor
     func apiCall<D: Decodable>(
         _ httpMethod: HTTPMethod,
-        url: URL,
+        url: URL?,
         data: Data? = nil,
         credential: String? = nil
     ) async throws -> D {
@@ -31,7 +31,7 @@ public extension APIClient {
     @MainActor
     func apiCall<D: Decodable>(
         _ httpMethod: HTTPMethod,
-        url: URL,
+        url: URL?,
         dictionary: [String: Any],
         credential: String? = nil
     ) async throws -> D {
@@ -42,7 +42,7 @@ public extension APIClient {
     @MainActor
     func apiCall<D: Decodable, E: Encodable>(
         _ httpMethod: HTTPMethod,
-        url: URL,
+        url: URL?,
         encodable: E,
         credential: String? = nil
     ) async throws -> D {
@@ -89,7 +89,7 @@ public extension APIClient {
     @MainActor
     func apiCall(
         _ httpMethod: HTTPMethod,
-        url: URL,
+        url: URL?,
         data: Data? = nil,
         credential: String? = nil
     ) async throws {
@@ -99,7 +99,7 @@ public extension APIClient {
     @MainActor
     func apiCall<E: Encodable>(
         _ httpMethod: HTTPMethod,
-        url: URL,
+        url: URL?,
         encodable: E,
         credential: String? = nil
     ) async throws {
@@ -110,7 +110,7 @@ public extension APIClient {
     @MainActor
     func apiCall(
         _ httpMethod: HTTPMethod,
-        url: URL,
+        url: URL?,
         dictionary: [String: Any],
         credential: String? = nil
     ) async throws {

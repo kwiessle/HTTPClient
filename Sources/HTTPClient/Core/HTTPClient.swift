@@ -19,7 +19,10 @@ public protocol HTTPClient {
 
 public extension HTTPClient {
     
-    private func createRequest(_ httpMethod: HTTPMethod, url: URL, data: Data?, credential: String?) -> URLRequest {
+    private func createRequest(_ httpMethod: HTTPMethod, url: URL?, data: Data?, credential: String?) throws -> URLRequest {
+        guard let url else {
+            throw URLError(.badURL)
+        }
         var request = URLRequest(url: url)
         request.httpMethod = httpMethod.rawValue
         request.httpBody = data
@@ -31,8 +34,8 @@ public extension HTTPClient {
     }
     
     @discardableResult
-    func perform(_ httpMethod: HTTPMethod, url: URL, data: Data?, credential: String?) async throws -> Data {
-        let request = self.createRequest(httpMethod, url: url, data: data, credential: credential)
+    func perform(_ httpMethod: HTTPMethod, url: URL?, data: Data?, credential: String?) async throws -> Data {
+        let request = try self.createRequest(httpMethod, url: url, data: data, credential: credential)
         return try await Networker.shared.perform(request: request)
     }
     
